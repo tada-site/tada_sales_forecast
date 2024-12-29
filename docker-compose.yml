@@ -1,0 +1,45 @@
+version: '3'
+networks:
+  sales_netwok:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/16
+
+services:
+  db:
+    container_name: mysql
+    image: mysql:8.0.11
+    restart: ${RESTART_MODE}
+    environment:
+      - MYSQL_DATABASE=sales_analytic
+      - MYSQL_USER=${DATABASE_MYSQLDB_USER}
+      - MYSQL_PASSWORD=${DATABASE_MYSQLDB_USER_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_MYSQLDB_ROOT_PASSWORD}
+    sysctls:
+      net.core.somaxconn: 65535
+    ports:
+      - "3307:3306"
+    hostname: mysql
+    volumes:
+      - ./db-data:/var/lib/mysql
+    networks:
+      sales_netwok:
+        ipv4_address: 172.22.0.3
+
+  web:
+    build: .
+    command: python app/manage.py runserver 0.0.0.0:8000
+    image: application:django
+    volumes:
+      - .:/app/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      sales_netwok:
+        ipv4_address: 172.22.0.2
+
+volumes:
+  db-data:

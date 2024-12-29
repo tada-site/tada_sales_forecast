@@ -1,0 +1,7 @@
+.env
+config.json
+!config.json.example
+db-data/
+.venv/
+app/db.sqlite3
+
