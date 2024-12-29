@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sales',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +98,9 @@ DATABASES = {
     }
 }
 
+DATABASE_ROUTERS = [
+    "router.ApiRouter"
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
