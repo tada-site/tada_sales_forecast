@@ -99,7 +99,7 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = [
-    "router.ApiRouter"
+    "app.router.ApiRouter"
 ]
 
 # Password validation
