@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %} TEST page model departments {% endblock %}
+{% block content %}
+<h1> Departments </h1>
+<form method=POST action="{% url 'test' %}">
+    {% csrf_token %}
+
+    {% if searched %}
+        <input type="search" 
+            name="searched" 
+            value="{{ searched }}"
+            placeholder="search department by name">
+    {% else %}
+        <input type="search" 
+            name="searched" 
+            value=""
+            placeholder="search department by name">
+    {% endif %}
+
+    <button type="submit" class="btn btn-secondary">Search</button>
+</form>
+
+<ul>
+    {% for dep in departments %}
+    <li>
+        {{dep.name}}, ID: {{dep.id}}, parent_id: {{dep.parent_id}}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

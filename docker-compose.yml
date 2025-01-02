@@ -5,6 +5,7 @@ networks:
       driver: default
       config:
         - subnet: 172.22.0.0/16
+          gateway: 172.22.0.1
 
 services:
   db:
@@ -40,6 +41,8 @@ services:
     networks:
       sales_netwok:
         ipv4_address: 172.22.0.2
+    extra_hosts:
+          - "dockerhost:172.22.0.1"
 
 volumes:
   db-data:
