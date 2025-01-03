@@ -1,6 +1,6 @@
 
 class ApiRouter:
-    api_db = "test_db"
+    api_db = "tada_api"
     default_db = "default"
 
     def db_for_read(self, model, **hints):
