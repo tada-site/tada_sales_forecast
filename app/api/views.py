@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.db import connections
+import calendar
+from time import gmtime, strftime
+from datetime import datetime, timedelta
 from . import models
 
 items_per_page = 10
@@ -80,7 +83,28 @@ def goods(request):
 
 def good(request, uuid):
     good = models.Goods.objects.get(pk=uuid)
-    return render (request, "one_good.html", {"good": good})
+
+
+    date_from = datetime.today().replace(day=1)
+    date_from_str = date_from.strftime("%Y-%m-%d")
+    last_d = calendar.monthrange(int(strftime("%Y", gmtime())), int(strftime("%m", gmtime())))[1]
+    date_to = datetime.today().replace(day=last_d).strftime("%Y-%m-%d")
+
+    last_month_from = (date_from - timedelta(days=date_from.day)).replace(day=1).strftime("%Y-%m-%d")
+    last_month_to = (date_from - timedelta(days=date_from.day)).strftime("%Y-%m-%d")
+
+    cursor = connections['test_db'].cursor()
+    cursor.execute("select count(*) c from `Order_goods` where order_uuid in (select uuid from Orders \
+    where `date` <= '" + date_to +  "' and `date` >= '" + date_from_str + "') and good_code =" + good.good_code)
+    res = cursor.fetchone()
+    sales_this_month = res[0]
+
+    cursor.execute("select count(*) c from `Order_goods` where order_uuid in (select uuid from Orders \
+    where `date` <= '" + last_month_to +  "' and `date` >= '" + last_month_from + "') and good_code =" + good.good_code)
+    res = cursor.fetchone()
+    sales_last_month = res[0]
+
+    return render (request, "one_good.html", {"good": good, "this_month": sales_this_month, "last_month": sales_last_month})
 
 
 def categories(request):
