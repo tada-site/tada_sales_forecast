@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %} {{ good.title_ua }} {% endblock %}
+{% block content %}
+<h1> Good Title: {{ good.title_ua }} </h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>good_code</td>
+            <td>uuid</td>
+            <td>Title</td>
+            <td>Description</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ good.good_code}}</td>
+            <td>{{ good.uuid}}</td>
+            <td>{{ good.title_ua}}</td>
+            <td>{{ good.description_ua}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %} Department Title: {{ department.name }} {% endblock %}
+{% block content %}
+<h1> Department Title: {{ department.name }} </h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Parent ID</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ department.id}}</td>
+            <td>{{ department.name}}</td>
+            <td>{{ department.parent_id}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block title %} Goods search {% endblock %}
+{% block content %}
+<h1> Goods </h1>
+<div class="row mb-2">
+    <div class="col-md-12">
+        <form method=POST action="{% url 'goods' %}">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-4">
+                    {% if good_code %}
+                    <input type="search" class="form-control" name="good_code" value="{{ good_code }}"
+                        placeholder="good_code">
+                    {% else %}
+                    <input type="search" class="form-control" name="good_code" value="" placeholder="good_code">
+                    {% endif %}
+                </div>
+
+                <div class="col-md-4">
+                    {% if good_name %}
+                    <input type="search" class="form-control" name="good_name" value="{{ good_name }}"
+                        placeholder="Name">
+                    {% else %}
+                    <input type="search" class="form-control" name="good_name" value="" placeholder="Name">
+                    {% endif %}
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>good_code</td>
+                <td>uuid</td>
+                <td>Title</td>
+                <td>Description</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for good in goods %}
+            <tr>
+                <td>{{ good.good_code}}</td>
+                <td>{{ good.uuid}}</td>
+                <td>{{ good.title_ua}}</td>
+                <td>{{ good.description_ua}}</td>
+                <td><a href="/good/{{ good.uuid }}" class="btn btn-secondary">view</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}

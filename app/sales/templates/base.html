@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
         {% block title %}
-        Django App
+        TA-DA! Sales Forecating
         {% endblock %}
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -15,20 +15,20 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">My Django App</a>
+        <a class="navbar-brand" href="#">TA-DA! Sales Forecating</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                <li class="nav-item {% if request.path == "/" or request.path == "/goods/" %} active {% endif %}">
+                    <a class="nav-link" href="">Goods</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                <li class="nav-item {% if request.path == "/categories/" %} active {% endif %}">
+                    <a class="nav-link" href="/categories">Categories</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                <li class="nav-item {% if request.path == "/test/" %} active {% endif %}">
+                    <a class="nav-link" href="/test">Test</a>
                 </li>
             </ul>
         </div>
