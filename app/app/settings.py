@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-n1x+%v%0tef+56ej_^)6*jczmprydya8&hfg133((ad#)52kin
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sales-forecast.ta-da.ua']
 
 
 # Application definition
