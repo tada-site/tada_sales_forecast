@@ -68,6 +68,12 @@
     </tbody>
 </table>
 
+<div class="row">
+    <div class="col-md-12">
+        {{ graph|safe }}
+    </div>
+</div>
+
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
