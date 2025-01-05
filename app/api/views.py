@@ -1,9 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.db import connections
-import calendar
-from time import gmtime, strftime
-from datetime import datetime, timedelta
 from . import models
 from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data, return_graph
 
