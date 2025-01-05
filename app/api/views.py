@@ -5,7 +5,7 @@ import calendar
 from time import gmtime, strftime
 from datetime import datetime, timedelta
 from . import models
-from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data
+from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data, return_graph
 
 
 items_per_page = 10
