@@ -21,17 +21,21 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item {% if request.path == "/" or request.path == "/goods/" %} active {% endif %}">
+                <li class="nav-item {% if request.path == "/" or request.path == "/api/goods/" %} active {% endif %}">
                     <a class="nav-link" href="">Goods</a>
                 </li>
-                <li class="nav-item {% if request.path == "/categories/" %} active {% endif %}">
-                    <a class="nav-link" href="/categories">Categories</a>
+                <li class="nav-item {% if request.path == "/api/categories/" %} active {% endif %}">
+                    <a class="nav-link" href="/api/categories">Categories</a>
                 </li>
-                <li class="nav-item {% if request.path == "/test/" %} active {% endif %}">
-                    <a class="nav-link" href="/test">Test</a>
+                <li class="nav-item {% if request.path == "/api/test/" %} active {% endif %}">
+                    <a class="nav-link" href="/api/test">Test</a>
                 </li>
             </ul>
         </div>
+        <form class="logout" action="{% url 'logout' %}" method = "POST">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
     </nav>
     <div class="container">{% block content %} {% endblock %}</div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
