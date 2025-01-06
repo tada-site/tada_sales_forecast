@@ -98,7 +98,7 @@ def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):
         date_from_str = date_from.strftime("%Y-%m-%d")
         sort_str = "DATE_FORMAT(`date`, '%Y-%m') as d"
     elif group_by == GROUP_BY_YEAR:
-        date_from = datetime.today().replace(day=1, month=1) - relativedelta(years=5)
+        date_from = datetime.today().replace(day=1, month=1) - relativedelta(years=2)
         date_from_str = date_from.strftime("%Y-%m-%d")
         sort_str = "DATE_FORMAT(`date`, '%Y') as d"
     else:
