@@ -20,6 +20,14 @@
         {% endif %}
     </div>
     <div class="col-md-12">
+        <h1>Good sales by month y city for last year</h1>
+        {% if graph_city %}
+            {{ graph_city|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
+    </div>
+    <div class="col-md-12">
         <h1>Good sales by year last 5 years</h1>
         {% if graph_year %}
             {{ graph_year|safe }}

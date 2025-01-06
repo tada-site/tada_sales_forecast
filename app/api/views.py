@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from django.db import connections
 from . import models
 from django.contrib.auth.decorators import login_required
-from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data, return_city_graph
+from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_city_graph_data, get_good_graph_data
 
 
 items_per_page = 10
@@ -11,13 +10,16 @@ items_per_page = 10
 
 @login_required(login_url="/login/")
 def all_stat(request):
+    sales_by_city_month = get_city_graph_data(GROUP_BY_MONTH)
     sales_by_day = get_good_graph_data(0, GROUP_BY_DAY)
     sales_by_month = get_good_graph_data(0, GROUP_BY_MONTH)
     sales_by_year = get_good_graph_data(0, GROUP_BY_YEAR)
 
     return render (request, "all_stat.html", {"graph_day": sales_by_day,
                                               "graph_month": sales_by_month,
-                                              "graph_year": sales_by_year})
+                                              "graph_year": sales_by_year,
+                                              "graph_city": sales_by_city_month
+                                              })
 
 
 @login_required(login_url="/login/")
