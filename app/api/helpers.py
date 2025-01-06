@@ -122,7 +122,10 @@ def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):
     if len(res) == 0:
         return False
 
+    print(res)
     res = transpone(res)
+    print("transpone")
+    print(res)
     return return_graph(res[1], res[0])
 
 
