@@ -27,6 +27,16 @@ def return_graph(periods, sales):
     data = imgdata.getvalue()
     return data
 
+def return_graph_blank():
+    fig = plt.figure()
+
+    imgdata = StringIO()
+    fig.savefig(imgdata, format='svg')
+    imgdata.seek(0)
+
+    data = imgdata.getvalue()
+    return data
+
 def prepare_plot_data(mylist=[]):
     #mylist = [[123, "2023-02", "Полтава"], [236, "2023-01", "Полтава"], [23, "2023-02", "Харків"], [344, "2023-02", "Кременчук"],
     #            [111, "2023-03", "Полтава"], [236, "2023-01", "Кременчук"], [23, "2023-01", "Харків"], [344, "2023-01", "Лохвиця"],
@@ -106,6 +116,10 @@ def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):
         and og.good_code " + str(good_filer) + " group by d")
 
     res = cursor.fetchall()
+
+    if len(res) == 0:
+        return return_graph_blank()
+
     res = transpone(res)
     return return_graph(res[1], res[0])
 
