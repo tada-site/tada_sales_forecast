@@ -19,10 +19,13 @@ def transpone(M):
 def return_graph(periods, sales):
     fig = plt.figure()
 
-    periods = np.asarray(periods, dtype='datetime64[s]')
-
     plt.plot(periods, sales)
-    plt.xticks(rotation=90)
+
+    if len(periods) > 20:
+        plt.xticks(range(0, len(periods), 3), periods[::3], rotation=75)
+    else:
+        plt.xticks(rotation=75)
+
 
     fig.set_figwidth(15)
     fig.set_figheight(10)
