@@ -20,15 +20,27 @@
 <div class="row">
     <div class="col-md-12">
         <h1>Good sales by day last 2 month's</h1>
-        {{ graph_day|safe }}
+        {% if graph_day %}
+            {{ graph_day|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
     </div>
     <div class="col-md-12">
         <h1>Good sales by month for last year</h1>
-        {{ graph_month|safe }}
+        {% if graph_month %}
+            {{ graph_month|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
     </div>
     <div class="col-md-12">
         <h1>Good sales by year last 5 years</h1>
-        {{ graph_year|safe }}
+        {% if graph_year %}
+            {{ graph_year|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
     </div>
 </div>
 
