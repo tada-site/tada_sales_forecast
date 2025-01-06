@@ -112,13 +112,13 @@ def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):
     else:
         good_filer = " and og.good_code = " + str(good_code)
 
-    cursor.execute("select count(*) as c, " + sort_str + " from orders o \
-        inner join order_goods og on o.uuid = og.order_uuid \
+    cursor.execute("select count(*) as c, " + sort_str + " from Orders o \
+        inner join Order_goods og on o.uuid = og.order_uuid \
         where o.`status` = 4 and o.`date` <= '" + date_to + "' and o.`date` >= '" + date_from_str + "' " 
         + str(good_filer) + " group by d")
 
-    print("select count(*) as c, " + sort_str + " from orders o \
-        inner join order_goods og on o.uuid = og.order_uuid \
+    print("select count(*) as c, " + sort_str + " from Orders o \
+        inner join Order_goods og on o.uuid = og.order_uuid \
         where o.`status` = 4 and o.`date` <= '" + date_to + "' and o.`date` >= '" + date_from_str + "' " 
         + str(good_filer) + " group by d")
 
