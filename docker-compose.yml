@@ -28,6 +28,7 @@ services:
         ipv4_address: 172.22.0.3
 
   web:
+    container_name: django_app
     build: .
     command: ["python", "app/manage.py", "runserver", "0.0.0.0:8000"]
     image: application:django
