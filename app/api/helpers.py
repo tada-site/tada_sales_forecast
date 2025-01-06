@@ -22,6 +22,7 @@ def return_graph(periods, sales):
     plt.xticks(rotation=90)
 
     fig.set_figwidth(15)
+    fig.set_figheight(10)
 
     imgdata = StringIO()
     fig.savefig(imgdata, format='svg')
