@@ -2,14 +2,14 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.db import connections
 from . import models
-from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data, return_graph
+import collections
+from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data, return_graph, return_city_graph
 
 
 items_per_page = 10
 
 
 def test(request):
-
     if request.method == "POST":
         dep_id = request.POST['dep_id']
         dep_name = request.POST['dep_name']
@@ -35,7 +35,7 @@ def test(request):
         page_obj = paginator.get_page(page_number)
         departments = page_obj.object_list
 
-        graph = return_graph([2014, 2015, 2016], [234, 441, 345])
+        graph = return_city_graph()
         
         return render (request, "test.html", {"departments": departments, "page_obj": page_obj, 
                                               'graph': graph})
