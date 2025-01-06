@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.db import connections
 from . import models
-import collections
-from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data, return_graph, return_city_graph
+from django.contrib.auth.decorators import login_required
+from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph_data, return_city_graph
 
 
 items_per_page = 10
@@ -53,6 +53,7 @@ def testId(request, dep_id):
     return render (request, "one_test.html", {"department": department})
 
 
+@login_required(login_url="/login/")
 def goods(request):
     if request.method == "POST":
         good_code = request.POST['good_code']
@@ -83,6 +84,7 @@ def goods(request):
         return render (request, "goods.html", {"goods": goods, "page_obj": page_obj})
 
 
+@login_required(login_url="/login/")
 def good(request, uuid):
     good = models.Goods.objects.get(pk=uuid)
 
@@ -95,6 +97,7 @@ def good(request, uuid):
                                               "graph_year": sales_by_year})
 
 
+@login_required(login_url="/login/")
 def categories(request):
     if request.method == "POST":
         cat_name = request.POST['cat_name']
@@ -118,6 +121,7 @@ def categories(request):
         return render (request, "categories.html", {"categories": categories, "page_obj": page_obj})
 
 
+@login_required(login_url="/login/")
 def category(request, uuid):
     category = models.Categories.objects.get(pk=uuid)
 
