@@ -10,7 +10,8 @@ items_per_page = 10
 
 @login_required(login_url="/login/")
 def all_stat(request):
-    sales_by_city_month = get_city_graph_data(GROUP_BY_MONTH)
+    #sales_by_city_month = get_city_graph_data(GROUP_BY_MONTH)
+    sales_by_city_month = False
     sales_by_day = get_good_graph_data(0, GROUP_BY_DAY)
     sales_by_month = get_good_graph_data(0, GROUP_BY_MONTH)
     sales_by_year = get_good_graph_data(0, GROUP_BY_YEAR)
