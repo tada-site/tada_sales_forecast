@@ -17,7 +17,7 @@ def transpone(M):
 
 
 def return_graph(periods, sales):
-    fig = plt.figure()
+    fig = plt.figure().set_figwidth(15)
     plt.plot(periods, sales)
 
     imgdata = StringIO()
