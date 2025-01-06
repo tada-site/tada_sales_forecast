@@ -18,6 +18,9 @@ def transpone(M):
 
 def return_graph(periods, sales):
     fig = plt.figure()
+
+    periods = np.asarray(periods, dtype='datetime64[s]')
+
     plt.plot(periods, sales)
     plt.xticks(rotation=90)
 
