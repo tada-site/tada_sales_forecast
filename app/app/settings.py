@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-n1x+%v%0tef+56ej_^)6*jczmprydya8&hfg133((ad#)52kin
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'sales-forecast.ta-da.ua']
-CSRF_TRUSTED_ORIGINS = ['127.0.0.1', 'sales-forecast.ta-da.ua']
+CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1', 'https://sales-forecast.ta-da.ua']
 
 
 # Application definition
