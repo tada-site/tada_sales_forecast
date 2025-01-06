@@ -94,7 +94,7 @@ def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):
     else:
         date_from = datetime.today().replace(day=1)
         date_from_str = (date_from - timedelta(days=date_from.day)).replace(day=1).strftime("%Y-%m-%d")
-        sort_str = "DATE(`date`) as d"
+        sort_str = "DATE_FORMAT(`date`, '%Y-%m-%d') as d"
 
     if is_category:
         good_filer = "IN (select good_code from Goods where uuid in (select good_uuid from `Goods_ownerships`  \
