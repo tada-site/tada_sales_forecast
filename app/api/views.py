@@ -9,48 +9,15 @@ from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_good_graph
 items_per_page = 10
 
 
-def test(request):
-    if request.method == "POST":
-        dep_id = request.POST['dep_id']
-        dep_name = request.POST['dep_name']
+@login_required(login_url="/login/")
+def all_stat(request):
+    sales_by_day = get_good_graph_data(0, GROUP_BY_DAY)
+    sales_by_month = get_good_graph_data(0, GROUP_BY_MONTH)
+    sales_by_year = get_good_graph_data(0, GROUP_BY_YEAR)
 
-        if dep_id != "":
-            department = models.Departments.objects.get(pk=dep_id)
-            departments = [department]
-        else:
-            departments = models.Departments.objects.filter(name__icontains=dep_name)
-
-        paginator = Paginator(departments, items_per_page) 
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-        departments = page_obj.object_list
-
-        return render (request, "test.html", 
-                       {"departments": departments, "dep_id": dep_id, "dep_name": dep_name})
-    else:
-        departments = models.Departments.objects.all()
-
-        paginator = Paginator(departments, items_per_page) 
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-        departments = page_obj.object_list
-
-        graph = return_city_graph()
-        
-        return render (request, "test.html", {"departments": departments, "page_obj": page_obj, 
-                                              'graph': graph})
-
-
-def testId(request, dep_id):
-    department = models.Departments.objects.get(pk=dep_id)
-
-    cursor = connections['test_db'].cursor()
-    cursor.execute('select count(*) as c from departments where name like \
-        "%відділення%"')
-    res = cursor.fetchone()
-    print(res)
-
-    return render (request, "one_test.html", {"department": department})
+    return render (request, "all_stat.html", {"graph_day": sales_by_day,
+                                              "graph_month": sales_by_month,
+                                              "graph_year": sales_by_year})
 
 
 @login_required(login_url="/login/")

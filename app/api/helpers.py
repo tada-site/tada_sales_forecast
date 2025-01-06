@@ -97,13 +97,15 @@ def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):
     if is_category:
         good_filer = "IN (select good_code from Goods where uuid in (select good_uuid from `Goods_ownerships`  \
         where category_uuid = '" + good_code + "'))"
+    elif good_code == 0:
+        good_filer = ""
     else:
-        good_filer = "= " + str(good_code)
+        good_filer = " and og.good_code = " + str(good_code)
 
     cursor.execute("select count(*) as c, " + sort_str + " from Orders o \
         inner join Order_goods og on o.uuid = og.order_uuid \
-        where o.`status` = 4 and o.`date` <= '" + date_to + "' and o.`date` >= '" + date_from_str + "' \
-        and og.good_code " + str(good_filer) + " group by d")
+        where o.`status` = 4 and o.`date` <= '" + date_to + "' and o.`date` >= '" + date_from_str + "' " 
+        + str(good_filer) + " group by d")
 
     res = cursor.fetchall()
 

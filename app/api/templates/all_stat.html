@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %} Sales statistic {% endblock %}
+{% block content %}
+<h1> Sales statistic </h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Good sales by day last 2 month's</h1>
+        {% if graph_day %}
+            {{ graph_day|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
+    </div>
+    <div class="col-md-12">
+        <h1>Good sales by month for last year</h1>
+        {% if graph_month %}
+            {{ graph_month|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
+    </div>
+    <div class="col-md-12">
+        <h1>Good sales by year last 5 years</h1>
+        {% if graph_year %}
+            {{ graph_year|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
