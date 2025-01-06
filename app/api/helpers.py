@@ -19,6 +19,7 @@ def transpone(M):
 def return_graph(periods, sales):
     fig = plt.figure()
     plt.plot(periods, sales)
+    plt.xticks(rotation=90)
 
     fig.set_figwidth(15)
 
