@@ -60,10 +60,12 @@ def prepare_plot_data(mylist=[]):
 
 def return_city_graph(periods, data_arr):
     fig = plt.figure()
+    fig.set_figwidth(15)
+    fig.set_figheight(20)
 
     n = len(periods)
     r = np.arange(n) 
-    width = 0.25
+    width = 0.05
     
     i = 0
     for label, points in data_arr.items():
