@@ -105,7 +105,7 @@ def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):
         sort_str = "DATE_FORMAT(`date`, '%Y-%m-%d') as d"
 
     if is_category:
-        good_filer = "IN (select good_code from Goods where uuid in (select good_uuid from `Goods_ownerships`  \
+        good_filer = " and og.good_code IN (select good_code from Goods where uuid in (select good_uuid from `Goods_ownerships`  \
         where category_uuid = '" + good_code + "'))"
     elif good_code == 0:
         good_filer = ""
