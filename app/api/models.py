@@ -7,11 +7,12 @@ class Goods(models.Model):
     uuid = models.CharField(primary_key=True, max_length=36)
     title_ua = models.CharField(max_length=255)
     description_ua = models.CharField(max_length=255)
-    price = models.FloatField()
 
     def __str__(self):
         return self.title_ua
 
+    class Meta:
+        db_table = "Goods"
 
 class Categories(models.Model):
     uuid = models.CharField(primary_key=True, max_length=36)
@@ -19,6 +20,9 @@ class Categories(models.Model):
 
     def __str__(self):
         return self.name_ua
+
+    class Meta:
+        db_table = "Categories"
 
 
 class Departments(models.Model):

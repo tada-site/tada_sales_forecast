@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-n1x+%v%0tef+56ej_^)6*jczmprydya8&hfg133((ad#)52kin
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sales-forecast.ta-da.ua']
+ALLOWED_HOSTS = ['127.0.0.1', 'sales-forecast.ta-da.ua']
 
 
 # Application definition
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.' + CONFIG['database']['engine'], 
-        'NAME': 'sales_analytic',
+        'NAME': CONFIG['database']['database'],
         'USER': CONFIG['database']['user'],
         'PASSWORD': CONFIG['database']['password'],
         'HOST': CONFIG['database']['host'],
@@ -90,7 +90,7 @@ DATABASES = {
     },
     "tada_api": {
         'ENGINE': 'django.db.backends.' + CONFIG['tada_api_database']['engine'], 
-        'NAME': 'tada_api',
+        'NAME': CONFIG['tada_api_database']['database'],
         'USER': CONFIG['tada_api_database']['user'],
         'PASSWORD': CONFIG['tada_api_database']['password'],
         'HOST': CONFIG['tada_api_database']['host'],
