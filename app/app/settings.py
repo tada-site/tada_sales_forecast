@@ -89,6 +89,14 @@ DATABASES = {
         'HOST': CONFIG['database']['host'],
         'PORT': CONFIG['database']['port'],
     },
+    "proxy_db": {
+        'ENGINE': 'django.db.backends.' + CONFIG['proxy_db']['engine'], 
+        'NAME': CONFIG['proxy_db']['database'],
+        'USER': CONFIG['proxy_db']['user'],
+        'PASSWORD': CONFIG['proxy_db']['password'],
+        'HOST': CONFIG['proxy_db']['host'],
+        'PORT': CONFIG['proxy_db']['port'],
+    },
     "tada_api": {
         'ENGINE': 'django.db.backends.' + CONFIG['tada_api_database']['engine'], 
         'NAME': CONFIG['tada_api_database']['database'],

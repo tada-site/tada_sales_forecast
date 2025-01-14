@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %} Sales statistic {% endblock %}
+{% block content %}
+<h1> Sales statistic </h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Sales predictions</h1>
+        {% if graph %}
+            {{ graph|safe }}
+        {% else %}
+            NO DATA
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

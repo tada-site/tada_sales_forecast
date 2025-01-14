@@ -2,7 +2,16 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from . import models
 from django.contrib.auth.decorators import login_required
-from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_city_graph_data, get_good_graph_data
+from .helpers import GROUP_BY_DAY, GROUP_BY_MONTH, GROUP_BY_YEAR, get_history_data, get_good_graph_data, plot_predictions
+
+import time, datetime
+import lightgbm as lgb
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from mlforecast import MLForecast
+from mlforecast.lag_transforms import ExpandingMean, RollingMean
+from mlforecast.target_transforms import Differences
+from mlforecast.utils import generate_daily_series
 
 
 items_per_page = 10
@@ -10,6 +19,49 @@ items_per_page = 10
 
 @login_required(login_url="/login/")
 def all_stat(request):
+
+    history_data = get_history_data(GROUP_BY_DAY)
+    series = generate_daily_series(
+        n_series=1,
+        min_length=len(history_data[0]),
+        max_length=len(history_data[0]),
+        n_static_features=1,
+        static_as_categorical=False,
+        with_trend=True
+    )
+
+    series.y = pd.Series(history_data[1])
+    series.ds = pd.DatetimeIndex(history_data[0])
+
+    print(series)
+
+    models = [
+        lgb.LGBMRegressor(random_state=0, verbosity=-1),
+        LinearRegression(),
+    ]
+    fcst = MLForecast(
+        models=models,
+        freq="D",
+        lags=[7,  14],
+        lag_transforms={
+            1: [ExpandingMean()],
+            7: [RollingMean(window_size=28)]
+        },
+        date_features=['dayofweek'],
+        target_transforms=[Differences([1])],
+    )
+
+    fcst.fit(series)
+    predictions = fcst.predict(14)
+    print(predictions)
+    
+    pred = plot_predictions(series, predictions)
+
+    return render (request, "all_stat_new.html", {"graph": pred})
+
+
+@login_required(login_url="/login/")
+def all_stat_old(request):
     #sales_by_city_month = get_city_graph_data(GROUP_BY_MONTH)
     sales_by_city_month = False
     sales_by_day = get_good_graph_data(0, GROUP_BY_DAY)

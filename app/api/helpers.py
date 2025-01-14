@@ -6,6 +6,7 @@ import numpy as np
 from time import gmtime, strftime
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from utilsforecast.plotting import plot_series
 
 GROUP_BY_DAY = 11
 GROUP_BY_MONTH = 12
@@ -15,6 +16,16 @@ GROUP_BY_YEAR = 13
 def transpone(M):
     return [[M[j][i] for j in range(len(M))] for i in range(len(M[0]))]
 
+
+def plot_predictions(series, predictions):
+    fig = plot_series(series, predictions, max_ids=4, plot_random=False)
+
+    imgdata = StringIO()
+    fig.savefig(imgdata, format='svg')
+    imgdata.seek(0)
+
+    data = imgdata.getvalue()
+    return data
 
 def return_graph(periods, sales):
     fig = plt.figure()
@@ -85,6 +96,35 @@ def return_city_graph(periods, data_arr):
 
     data = imgdata.getvalue()
     return data
+
+
+def get_history_data(group_by=GROUP_BY_DAY):
+    cursor = connections['proxy_db'].cursor()
+    
+    last_d = calendar.monthrange(int(strftime("%Y", gmtime())), int(strftime("%m", gmtime())))[1]
+    date_to = datetime.today().replace(day=last_d).strftime("%Y-%m-%d")
+
+    if group_by == GROUP_BY_MONTH:
+        date_from = datetime.today().replace(day=1) - relativedelta(years=1)
+        date_from_str = date_from.strftime("%Y-%m-%d")
+    elif group_by == GROUP_BY_YEAR:
+        date_from = datetime.today().replace(day=1, month=1) - relativedelta(years=5)
+        date_from_str = date_from.strftime("%Y-%m-%d")
+    else:
+        date_from = datetime.today().replace(day=1)
+        date_from_str = (date_from - timedelta(days=date_from.day)).replace(day=1).strftime("%Y-%m-%d")
+
+
+    cursor.execute("select date(cds1.data_vrem) as day, cds1.sales_yesterday \
+        from cd_sales cds1 left join cd_sales cds2 on \
+        date(cds1.data_vrem) = date(cds2.data_vrem) and \
+        cds1.data_vrem < cds2.data_vrem \
+        where cds2.id is null \
+        and cds1.data_vrem >= '" + date_from_str + "' \
+        and cds1.data_vrem <='" + date_to + "' order by day asc")
+
+    res = cursor.fetchall()
+    return transpone(res)
 
 
 def get_good_graph_data(good_code, group_by=GROUP_BY_DAY, is_category=False):

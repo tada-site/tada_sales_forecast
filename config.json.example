@@ -7,6 +7,14 @@
         "engine": "mysql",
         "database": "database"
     },
+    "proxy_db": {
+        "host": 127.0.0.3,
+        "port": 3306,
+        "user": "user",
+        "password": "pass",
+        "engine": "mysql",
+        "database": "database"
+    },
     "tada_api_database": {
         "host": 127.0.0.3,
         "port": 3306,
